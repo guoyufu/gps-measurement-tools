@@ -21,18 +21,18 @@ https://github.com/google/gps-measurement-tools
 
         ~/gpstools/*
 
-    and include the directory `~/gpstools/opensource` in your matlab path:
+    and include the directory '~/gpstools/opensource' in your matlab path:
 
         addpath('~/gpstools/opensource');
 
-    (Note: the tilde `~` is a place holder, don't actually use it, fill in
+    (Note: the tilde '~' is a place holder, don't actually use it, fill in
     the actual complete path)
 
 2. Edit ProcessGnssMeasScript.m to add the demoFiles directory, as follows:
 
         dirName = '~/gpstools/opensource/demoFiles'
 
-    (again, replace tilde `~` with actual complete path)
+    (again, replace tilde '~' with actual complete path)
 
 3. Run ProcessGnssMeasScript.m, it will run with pre-recorded log files.
 
@@ -52,24 +52,42 @@ site (GetNasaHourlyEphemeris.m will tell you the correct url and filename),
 copy the file to the directory where your log file is, 
 and GetNasaHourlyEphemeris.m will read it from there.
 
+### To evaluate an NMEA file against another NMEA file:
+Nmea2RtkMetrics.m example command:
+
+        dir='./opensource/demoFiles/NmeaUtils-demo/';
+        refFileName='MTV.Local1.SPAN.20200206-181434.gga';
+        testFileName='MTV.Local1.ublox-F9K.20200206-181434.nmea';
+        Nmea2RtkMetrics(testFileName,refFileName,dir)
+
+Example output:
+
+        50% (m), 95% (m), TT1M (s), TA1M (s), AA5S (m), AA10S (m), XTrack 50% (m), XTrack 95% (m)
+        0.49, 0.81, 0, 0.91, 786.00, 0.91, 0.09, 0.27
+
+Nmea2ErrorPlot.m example command:
+        
+        Nmea2ErrorPlot(testFileName,refFileName,dir)
+
+
 ### For a summary of the open source GNSS Measurements Tools
 
-See `~/gpstools/opensource/Contents.m` or type 'help opensource' in matlab
+See  ~/gpstools/opensource/Contents.m or type 'help opensource' in matlab
 command window.
 
 ## Platform specific notes:
 
-For Windows: use `\` (backslash), instead of `/` for directories.
+For Windows: use '\' (backslash), instead of '/' for directories.
 
 For Mac: when installing MATLAB. 
-`System Preferences` --> `Security & Privacy` -->
-`Allow Apps to be downloaded from: Mac App Store and identified developers`
+System Preferences --> Security & Privacy -->
+Allow Apps to be downloaded from: Mac App Store and identified developers
 
 Uncompress/Unzip utility called from GetNasaHourlyEphemeris.m:
 The ephemeris on the Nasa ftp is Unix-compressed. GetNasaHourlyEphemeris will 
 automatically uncompress it, if you have the right uncompress function on your 
-computer. If you need to install an unzip utility, see http://www.gzip.org/
-Then search for `uncompress` in the GetNasaHourlyEphemeris function to find and 
+computer. If you need to install an unzip utility, see http://www.gpzip.org
+Then search for 'uncompress' in the GetNasaHourlyEphemeris function to find and 
 edit the name of the unzip utility:
 
     unzipCommand='uncompress';%edit if your platform uses something different 
@@ -79,20 +97,8 @@ read the uncompressed file.
 
 # GNSSLogger
 
-Sample App that allows registering for various Android location related measurements,
-log the measurements to the screen and optionally to a text file and as well analyze these 
-measurements.
-
-Version 2.0.0.0 of the GnssLogger is enhanced with the following features:
-1. Compatible with Android-O new features like AGC and multi-frequency support
-2. Includes weighted least square position and velocity computations
-3. Includes weighted least square position and velocity uncertainty computations
-4. Compares the computed weighted least squares from raw GPS measurements vs the Kalman Filter position provided by the GPS chipset.
-5. Shows the computed weighted least square position from raw GPS measurements on Google Maps vs the Fused Location Provider reported position.
-6. Has an A-GPS control tab that allows clearing and injecting assistance data
-7. Plots CN0 of visible satellites and as well prints the top 4 visible satellites CN0 and average values
-8. Performs and plots residual analysis for both pseudorange residuals and pseudorange rate residuals
-9. Enhanced Logging both to screen and to files functionalities.
+Sample App that allows registering for various Android location related measurements
+and log the measurements to the screen and optionally to a text file.
 
 This source code is supplied as an Android Studio project that can be built and run
 with [Android Studio](https://developer.android.com/studio/index.html).
